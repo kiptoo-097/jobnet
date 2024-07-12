@@ -1,0 +1,54 @@
+<!-- templates/jobs/job_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job List</title>
+</head>
+<body>
+    <h2>Available Jobs</h2>
+    <ul>
+        {% for job in jobs %}
+            <li><a href="{% url 'job_detail' job.id %}">{{ job.title }}</a> at {{ job.company }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+<!-- templates/jobs/job_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ job.title }}</title>
+</head>
+<body>
+    <h2>{{ job.title }}</h2>
+    <p>{{ job.description }}</p>
+    <p>Company: {{ job.company }}</p>
+    <p>Location: {{ job.location }}</p>
+    <p>Posted by: {{ job.posted_by.username }} on {{ job.created_at }}</p>
+    <a href="{% url 'apply_job' job.id %}">Apply for this job</a>
+</body>
+</html>
+
+<!-- templates/jobs/inbox.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbox</title>
+</head>
+<body>
+    <h2>Inbox</h2>
+    <h3>Received Messages</h3>
+    <ul>
+        {% for message in received_messages %}
+            <li>{{ message.sender.username }}: {{ message.content }} ({{ message.sent_at }}) {% if not message.approved %} - Pending Approval{% endif %}</li>
+        {% endfor %}
+    </ul>
+    <h3>Sent Messages</h3>
+    <ul>
+        {% for message in sent_messages %}
+            <li>To {{ message.recipient.username }}: {{ message.content }} ({{ message.sent_at }}) {% if not message.approved %} - Pending Approval{% endif %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
