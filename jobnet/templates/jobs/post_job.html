@@ -1,0 +1,16 @@
+<!-- templates/jobs/post_job.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post a Job</title>
+</head>
+<body>
+    <h2>Post a Job</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Job</button>
+    </form>
+</body>
+</html>
+
